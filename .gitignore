@@ -18,6 +18,7 @@ pydump*.py
 common/UHH2-datasets/*
 VLQToHiggsPairProd/*
 ZprimeSemiLeptonic/*
+NonResonantTTbar/*
 Varial
 BaconJets/*
 JECDatabase/*
