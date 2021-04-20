@@ -15,15 +15,19 @@ def setup_opts():
                       "Print module summary (# executions, time per module)")
 
     # setup defaults
-    options.maxEvents = 500
-    options.outputFile = "Ntuple.root"
-    
+    options.maxEvents = 100
+    options.inputFiles = cms.untracked.vstring(['file:////nfs/dust/cms/user/jabuschh/NonResonantTTbar/ALPToTTbar_private_production/ALP_ttbar_interference_SM_like/output_step6_MiniAOD/B2G-RunIISummer20UL18MiniAOD-00455_0.root'])
+    options.outputFile = "ALPtoTTbar_interference_colorflowSMlike_0test.root"
+
+    # options.outputFile = "Ntuple.root"
+    # options.maxEvents = 500
+
     return options
 
 
 def parse_apply_opts(process, options):
     """Handle command-line args, and apply to the cms.Process object
-    
+
     Parameters
     ----------
     process : cms.Process

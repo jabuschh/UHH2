@@ -70,9 +70,18 @@ def get_request_name(dataset_name):
     return modified_name
 
 
-inputDatasets = ['/DYJetsToLL_M-50_HT-*to*_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_*/MINIAODSIM']
-inputDatasets = autocomplete_Datasets(inputDatasets)
-requestNames = [get_request_name(x) for x in inputDatasets]
+# inputDatasets = ['/DYJetsToLL_M-50_HT-*to*_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_*/MINIAODSIM']
+# inputDatasets = autocomplete_Datasets(inputDatasets)
+# requestNames = [get_request_name(x) for x in inputDatasets]
+
+inputDatasets = ['/nfs/dust/cms/user/jabuschh/UHH/CMSSW_10_2_17/src/UHH2/NonResonantTTbar/data/ALPtoTTbar_privateProduction/ALPtoTTbar_interference_private100k_colorflowSMlike_MiniAOD.root']
+requestNames  = ['/nfs/dust/cms/user/jabuschh/UHH/CMSSW_10_2_17/src/UHH2/NonResonantTTbar/data/ALPtoTTbar_privateProduction/ALPtoTTbar_interference_private100k_colorflowSMlike_MiniAOD.root']
+
+
+
+print "inputDatasets: " + str(inputDatasets)
+print "-------------"
+print " requestNames: " + str(requestNames)
 
 # ===============================================================================
 # Classical part of crab, after resolving the * it uses in the example below just the first entry
@@ -104,13 +113,15 @@ result = re.search(r'201[\d](v\d)?', pset)
 if not result:
     raise RuntimeError("Cannot extract year from psetName! Does your psetName have 201* in it?")
 year = result.group()
-config.Data.outLFNDirBase = '/store/group/uhh/uhh2ntuples/RunII_102X_v2/%s/' % (year)
+# config.Data.outLFNDirBase = '/store/group/uhh/uhh2ntuples/RunII_102X_v2/%s/' % (year)
 
 # If you want to run some private production and not put it in the group area, use this instead:
 # replacing YOUR_CERN_USERNAME_HERE as appropriate
-# config.Data.outLFNDirBase = '/store/user/YOUR_CERN_USERNAME_HERE/RunII_102X_v2/%s/' % (year)
+# config.Data.outLFNDirBase = '/store/user/jabuschh/RunII_102X_v2/%s/' % (year)
 if 'YOUR_CERN_USERNAME_HERE' in config.Data.outLFNDirBase:
     raise RuntimeError("You didn't insert your CERN username in config.Data.outLFNDirBase, please fix it")
+
+
 
 config.Data.publication = False
 config.JobType.sendExternalFolder = True
@@ -121,5 +132,3 @@ config.Site.storageSite = 'T2_DE_DESY'
 if len(inputDatasets) > 0 and len(requestNames) > 0:
     config.General.requestName = requestNames[0]
     config.Data.inputDataset = inputDatasets[0]
-
-
