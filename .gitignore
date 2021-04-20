@@ -17,7 +17,7 @@ pydump*.py
 *.json
 *.log
 common/UHH2-datasets/*
-NonResonantTTbar/*
+NonResonantTTbar/
 Varial
 BaconJets/*
 JECDatabase/*
@@ -25,5 +25,5 @@ JRDatabase/*
 pydump.py
 Makefile.local
 JetsTest/*
-MLCorner/*
+MLCorner/
 SFramePlotter/*
