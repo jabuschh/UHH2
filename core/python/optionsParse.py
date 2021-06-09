@@ -13,6 +13,11 @@ def setup_opts():
                       VarParsing.multiplicity.singleton,
                       VarParsing.varType.int,  # have to use int for a bool (!)
                       "Print module summary (# executions, time per module)")
+    options.register ('eventContent',
+                      'default',
+                      VarParsing.multiplicity.singleton,
+                      VarParsing.varType.string,
+                      "Control which variables are stored. Possible values: 'default', 'min', max'")
 
     # setup defaults
     options.maxEvents = 100
@@ -23,6 +28,25 @@ def setup_opts():
     # options.maxEvents = 500
 
     return options
+
+
+def set_event_content(process, eventContent):
+    """Control event content
+
+    Parameters
+    ----------
+    process : cms.Process
+        Main process object to manipulate
+    eventContent : string
+        Options controlling the event content:
+        if 'min' : minimal event content
+        if 'max' : maximal event content
+        else     : do nothing here, keep content as in process
+    """
+    if eventContent == 'min':
+        process.MyNtuple.doL1TriggerObjects=cms.bool(False)
+    if eventContent == 'max':
+        process.MyNtuple.doL1TriggerObjects=cms.bool(True)
 
 
 def parse_apply_opts(process, options):
@@ -45,3 +69,4 @@ def parse_apply_opts(process, options):
     # use this awkward __getattr__ as by default VarParsing changes options.outputFile
     # to xxx_numEventsYYY.root, which we don't necessarily want
     process.MyNtuple.fileName = cms.string(options.__getattr__('outputFile', noTags=True))
+    set_event_content(process,options.eventContent)
